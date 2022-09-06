@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./AddContact.module.css";
 
 const AddContact = ({ addContactHandler }) => {
   const [contact, setContact] = useState({ name: "", email: "" });
@@ -19,7 +20,7 @@ const AddContact = ({ addContactHandler }) => {
 
   return (
     <form onSubmit={submitForm}>
-      <div>
+      <div className={styles.formControl}>
         <label>Name : </label>
         <input
           type="text"
@@ -28,7 +29,7 @@ const AddContact = ({ addContactHandler }) => {
           onChange={changeHandler}
         />
       </div>
-      <div>
+      <div className={styles.formControl}>
         <label>Email : </label>
         <input
           type="text"
