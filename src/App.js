@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import AddContact from "./components/AddContact/AddContact";
 import ContactList from "./components/ContactList/ContactList";
+import { Switch,Route } from "react-router-dom";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -30,8 +31,12 @@ const App = () => {
   return (
     <main className="app">
       <h1>Contact App</h1>
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} onDelete={deleteContactHandler} />
+      <Switch>
+        <Route path="/add" render={(props)=><AddContact addContactHandler={addContactHandler} {...props} />} />
+        <Route path="/" exact render={(props)=> <ContactList contacts={contacts} onDelete={deleteContactHandler} {...props}/>} />
+      </Switch>
+      {/* <AddContact addContactHandler={addContactHandler} /> */}
+      {/* <ContactList contacts={contacts} onDelete={deleteContactHandler} /> */}
     </main>
   );
 };
