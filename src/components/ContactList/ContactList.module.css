@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 1rem;
 }
 
 .item{
@@ -25,4 +26,17 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.addBtn{
+    background-color: #818cf8;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
 }
