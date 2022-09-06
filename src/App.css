@@ -10,3 +10,14 @@ h1{
     color: #444;
     padding: 2rem 0;
 }
+
+.deleteContactIcon{
+    color: #dc2626;
+    cursor: pointer;
+}
+
+.userIcon{
+    font-size: 2.5rem;
+    color: #818cf8;
+    margin-right: 1rem;
+}
