@@ -7,6 +7,8 @@ import { Switch, Route } from "react-router-dom";
 import getContacts from "./services/getContactsService";
 import deleteOneContact from "./services/deleteOneContactService";
 import addOneContact from "./services/addOneContactService";
+import EditContact from "./components/EditContact/EditContact";
+import updateContact from "./services/updateContactService";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -27,6 +29,14 @@ const App = () => {
     } catch (error) {}
   };
 
+  const editContactHandler = async (contact, id) => {
+    try {
+      await updateContact(contact, id);
+      const { data } = await getContacts();
+      setContacts(data);
+    } catch (error) {}
+  };
+
   const deleteContactHandler = async (id) => {
     try {
       await deleteOneContact(id);
@@ -39,6 +49,12 @@ const App = () => {
     <main className="app">
       <h1>Contact App</h1>
       <Switch>
+        <Route
+          path="/edit/:id"
+          render={(props) => (
+            <EditContact editContactHandler={editContactHandler} {...props} />
+          )}
+        />
         <Route path="/user/:id" component={ContactDetail} />
         <Route
           path="/add"
@@ -58,8 +74,6 @@ const App = () => {
           )}
         />
       </Switch>
-      {/* <AddContact addContactHandler={addContactHandler} /> */}
-      {/* <ContactList contacts={contacts} onDelete={deleteContactHandler} /> */}
     </main>
   );
 };
