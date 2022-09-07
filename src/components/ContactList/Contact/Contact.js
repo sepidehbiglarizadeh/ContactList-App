@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Contact = ({ contact, onDelete }) => {
   const { name, email, id } = contact;
   return (
-    <div key={id} className={styles.item}>
+    <div className={styles.item}>
       <div className={styles.item__content}>
         <IconContext.Provider value={{ className: "userIcon" }}>
           <FaUserAlt />

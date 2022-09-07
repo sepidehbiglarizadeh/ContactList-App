@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 1rem;
+    width: 450px;
 }
 
 .item{
@@ -10,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    width: 45rem;
+    width: 100%;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -39,4 +40,16 @@
     font-weight: bold;
     margin-bottom: 1rem;
     text-transform: uppercase;
+}
+
+.listHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.listWrapper{
+    display: flex;
+    justify-content: center;
 }

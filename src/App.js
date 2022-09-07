@@ -3,14 +3,21 @@ import "./App.css";
 import AddContact from "./components/AddContact/AddContact";
 import ContactList from "./components/ContactList/ContactList";
 import ContactDetail from "./components/ContactDetail/ContactDetail";
-import { Switch,Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import axios from "axios";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const savedContacts = JSON.parse(localStorage.getItem("contacts"));
-    if (savedContacts) setContacts(savedContacts);
+    // const savedContacts = JSON.parse(localStorage.getItem("contacts"));
+    // if (savedContacts) setContacts(savedContacts);
+    const getContacts = async () => {
+      const { data } = await axios.get("http://localhost:3001/contacts");
+      setContacts(data);
+    };
+
+    getContacts();
   }, []);
 
   useEffect(() => {
@@ -33,9 +40,24 @@ const App = () => {
     <main className="app">
       <h1>Contact App</h1>
       <Switch>
-        <Route path="/user/:id" component={ContactDetail}/>
-        <Route path="/add" render={(props)=><AddContact addContactHandler={addContactHandler} {...props} />} />
-        <Route path="/" exact render={(props)=> <ContactList contacts={contacts} onDelete={deleteContactHandler} {...props}/>} />
+        <Route path="/user/:id" component={ContactDetail} />
+        <Route
+          path="/add"
+          render={(props) => (
+            <AddContact addContactHandler={addContactHandler} {...props} />
+          )}
+        />
+        <Route
+          path="/"
+          exact
+          render={(props) => (
+            <ContactList
+              contacts={contacts}
+              onDelete={deleteContactHandler}
+              {...props}
+            />
+          )}
+        />
       </Switch>
       {/* <AddContact addContactHandler={addContactHandler} /> */}
       {/* <ContactList contacts={contacts} onDelete={deleteContactHandler} /> */}

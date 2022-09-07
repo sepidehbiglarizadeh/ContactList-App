@@ -4,18 +4,18 @@ import styles from "./ContactList.module.css";
 
 const ContactList = ({ contacts, onDelete }) => {
   return (
-    <section className={styles.contactList}>
-      <div>
-        <Link to="/add">
-          <button className={styles.addBtn}>Add New Contact</button>
-        </Link>
-        <h2>All Contacts</h2>
+    <section className={styles.listWrapper}>
+      <div className={styles.contactList}>
+        <div className={styles.listHeader}>
+          <h2>All Contacts</h2>
+          <Link to="/add">
+            <button className={styles.addBtn}>Add New Contact</button>
+          </Link>
+        </div>
+        {contacts.map((contact) => {
+          return <Contact contact={contact} onDelete={onDelete} key={contact.id}/>;
+        })}
       </div>
-      {contacts.map((contact) => {
-        return (
-          <Contact contact={contact} onDelete={onDelete}/>
-        );
-      })}
     </section>
   );
 };
