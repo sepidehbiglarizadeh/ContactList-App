@@ -1,8 +1,30 @@
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
+import deleteOneContact from "../../services/deleteOneContactService";
+import getContacts from "../../services/getContactsService";
 import Contact from "./Contact/Contact";
 import styles from "./ContactList.module.css";
 
-const ContactList = ({ contacts, onDelete }) => {
+const ContactList = ({ onDelete }) => {
+
+  const [contacts,setContacts]=useState(null);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      const { data } = await getContacts();
+      setContacts(data);
+    };
+    fetchContacts();
+  }, []);
+
+  const deleteContactHandler = async (id) => {
+    try {
+      await deleteOneContact(id);
+      const filteredContacts = contacts.filter((c) => c.id !== id);
+      setContacts(filteredContacts);
+    } catch (error) {}
+  };
+
   return (
     <section className={styles.listWrapper}>
       <div className={styles.contactList}>
@@ -12,9 +34,9 @@ const ContactList = ({ contacts, onDelete }) => {
             <button className={styles.addBtn}>Add New Contact</button>
           </Link>
         </div>
-        {contacts.map((contact) => {
-          return <Contact contact={contact} onDelete={onDelete} key={contact.id}/>;
-        })}
+        {contacts ? contacts.map((contact) => {
+          return <Contact contact={contact} onDelete={deleteContactHandler} key={contact.id}/>;
+        }) :( <p>Loading...</p>)}
       </div>
     </section>
   );

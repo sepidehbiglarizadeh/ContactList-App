@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "../AddContact/AddContact.module.css";
 import getOneContact from "../../services/getOneContactService";
+import updateContact from "../../services/updateContactService";
 
-const EditContact = ({ editContactHandler, history, match }) => {
+const EditContact = ({ history, match }) => {
   const [contact, setContact] = useState({ name: "", email: "" });
 
   useEffect(() => {
@@ -13,21 +14,23 @@ const EditContact = ({ editContactHandler, history, match }) => {
       } catch (error) {}
     };
     localFetch();
-  }, []);
+  },[]);
 
   const changeHandler = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async(e) => {
     if (!contact.name || !contact.email) {
       alert("All fields are mandatory!!!");
       return;
     }
     e.preventDefault();
-    editContactHandler(contact,match.params.id);
-    setContact({ name: "", email: "" });
-    history.push("/");
+    try {
+      await updateContact(contact, match.params.id);
+      history.push("/");
+      setContact({ name: "", email: "" });
+    } catch (error) {}
   };
 
   return (
